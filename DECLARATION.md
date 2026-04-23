@@ -1,46 +1,119 @@
-# 프로젝트 선언문
+# Project Declaration
 
-## 왜 이 프로젝트를 하는가
-1. 앞으로의 프로젝트에 적용할 수 있는 "나의 성장 훈련 장치"를 만들기 위해
-2. 멀티 에이전트 RAG 시스템을 실제로 구현해보기 위해
-3. AI에게 효과적으로 명령하는 방법을 학습하기 위해
-4. AI 응답을 비판적으로 검토하는 습관을 기르기 위해
+This document defines why I am building the Local Multi-Agent RAG Assistant and what kind of growth I want from this project.
 
-## 4주 뒤 나는 어떤 능력을 갖기를 바라는가
+The goal is not just to build a working system.  
+The real goal is to train judgment, design sense, and AI collaboration skills as a junior developer in the AI era.
 
-### 기술적 능력
-- 바이브 코딩을 효율적으로 활용할 수 있다
-- PRD와 TRD를 스스로 작성할 수 있다
-- LangGraph의 State 기반 설계를 이해하고 설명할 수 있다
-- RAG의 청킹/임베딩/검색 흐름을 설명할 수 있다
+---
 
-### 메타 능력 (더 중요)
-- 설계 결정 시 최소 2개 대안을 비교하는 습관
-- AI 답변을 받으면 "왜?"를 3번 물어 트레이드오프를 확인하는 습관
-- 불완전한 결정으로도 일단 시작하는 습관
+## 1. Why I Am Building This Project
 
-## AI에게 맡길 영역 vs 내가 결정할 영역
+I am building this project to:
 
-### AI에게 맡긴다
-- 보일러플레이트 코드 생성
-- 문법/라이브러리 사용법
-- 일반적 패턴 구현
-- 에러 메시지 해석
+1. Create a personal training ground for future projects
+2. Implement a multi-agent RAG system myself
+3. Learn how to give better instructions to AI tools
+4. Build the habit of critically reviewing AI responses
+5. Become a developer who can explain design decisions, not just write code
 
-### 내가 결정한다 (AI 의견은 참고만)
-- 아키텍처 주요 선택
-- 기술 스택 선택 이유
-- 기능 범위(scope) 결정
-- 포기할 기능 결정
+---
 
-## 성공 조건
-- 문서 2개를 넣고 질문하면 검색 후 답변이 돌아오는 시스템 (v1)
-- Planner → Retriever → Generator → Evaluator 흐름이 동작 (v2)
-- 주요 기술 선택 이유를 내 언어로 설명할 수 있음
-- 프로젝트 종료 후 문서만 읽어도 과정이 재구성되는 수준의 기록
+## 2. Desired State After 4 Weeks
 
-## 실패 조건 (이것만은 피한다)
-- AI가 짜준 코드를 이해 못 한 채 커밋하는 것
-- 4주 후 "이걸 왜 이렇게 만들었지?"를 설명 못 하는 것
-- 오버띵킹으로 시작을 못 하는 것
-- 범위 확장 유혹에 넘어가는 것
+### Technical Skills
+
+After 4 weeks, I want to be able to:
+
+- Use vibe coding effectively instead of blindly following AI output
+- Write PRD and TRD documents by myself
+- Understand and explain LangGraph State-based design
+- Explain the RAG flow: chunking, embedding, retrieval, generation
+- Explain how FastAPI requests connect to the LangGraph flow
+- Explain the role of PostgreSQL + pgvector in a RAG system
+
+### Meta Skills
+
+These are more important than the technical skills.
+
+I want to build the habit of:
+
+- Comparing at least 2 alternatives before making design decisions
+- Asking “why?” repeatedly to understand tradeoffs
+- Starting with imperfect decisions instead of overthinking forever
+- Controlling scope creep
+- Not committing code that I cannot explain
+
+---
+
+## 3. What I Delegate to AI vs What I Decide Myself
+
+### Delegated to AI
+
+I use AI as a productivity tool for:
+
+- Boilerplate code generation
+- Syntax and library usage
+- Common implementation patterns
+- Error message interpretation
+- Test code drafts
+- Documentation drafts
+- Refactoring suggestions
+
+### Decided by Me
+
+AI can suggest, but I make the final decision for:
+
+- Major architecture choices
+- Tech stack selection
+- Feature scope
+- Features to remove or postpone
+- v1/v2/v3 priorities
+- Whether code is ready to commit
+- Final wording in project documents
+
+---
+
+## 4. Success Conditions
+
+Success is measured by understanding and explainability, not feature count.
+
+### Product Success
+
+- The system can ingest 2–3 documents and answer questions using retrieval.
+- v1 completes the basic RAG flow.
+- v2 runs the Planner → Retriever → Generator → Evaluator flow.
+- Final answers include source references.
+
+### Learning Success
+
+- I can explain major technical decisions in my own words.
+- The project process can be reconstructed from documents.
+- I understand the core flow of AI-generated code before committing it.
+- Decision reasons are recorded, not just implementation results.
+
+---
+
+## 5. Failure Conditions
+
+I must avoid:
+
+- Committing AI-generated code without understanding it
+- Being unable to explain after 4 weeks why the system was designed this way
+- Failing to start because of overthinking
+- Expanding scope too early
+- Touching v2/v3 features before v1 is complete
+- Leaving only code without documentation
+
+---
+
+## 6. Personal Rules During This Project
+
+### Rule 1: Keep v1 Small
+
+v1 should stay small.
+
+The most important v1 flow is:
+
+```text
+ingest document → retrieve chunks → generate answer → return sources

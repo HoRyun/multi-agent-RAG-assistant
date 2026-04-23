@@ -1,87 +1,236 @@
 # PRD: Local Multi-Agent RAG Assistant
 
-## 1. 프로젝트 한 줄 소개
-로컬 환경에서 동작하는 개발 학습용 멀티 에이전트 RAG 어시스턴트.
-개발 문서를 대상으로 질문하면, 검색 후 근거 기반 답변을 생성하고,
-답변 품질을 평가하여 필요 시 재시도하는 시스템.
+## 1. One-line Summary
 
-## 2. 왜 이 프로젝트를 하는가
-- 신입 개발자로서 LLM 로직과 오케스트레이션 설계 경험을 쌓기 위해
-- AI 도구를 효과적으로 활용하는 방법을 체득하기 위해
-- 판단력 훈련용 포트폴리오를 만들기 위해
+A local, learning-focused multi-agent RAG assistant for development documents.
 
-## 3. 사용자 (Persona)
-- 본인 (단일 사용자)
-- 학습 자료를 자주 찾아보는 신입~주니어 개발자
+The system ingests development documents, retrieves relevant context for user questions, generates grounded answers, and later evaluates answer quality with retry logic.
 
-## 4. 핵심 사용 시나리오
-1. 사용자가 공식 문서 파일을 시스템에 적재한다.
-2. 사용자가 질문을 입력한다. 예: "LangGraph에서 State는 어떻게 설계해야 하는가?"
-3. 시스템이 관련 문서를 검색한다.
-4. 시스템이 검색 결과를 바탕으로 답변을 생성한다.
-5. 시스템이 답변 품질을 평가한다. (v2 이후)
-6. 품질이 낮으면 재시도한다. (v2 이후)
-7. 최종 답변과 근거 문서를 반환한다.
+---
 
-## 5. v1 범위 (2주 내 완성)
-### 포함
-- 마크다운 문서 2~3개를 DB에 적재
-- 사용자 질문 → 검색 → 답변 생성 흐름
-- FastAPI 기반 REST API (POST /ingest, POST /chat)
-- PostgreSQL + pgvector로 벡터 저장
-- Ollama + Qwen 로컬 LLM 사용
+## 2. Project Motivation
 
-### 제외 (v1에서 하지 않음)
-- Planner, Evaluator 에이전트 (v2에서 추가)
-- 재시도 로직 (v2)
-- 프론트엔드 UI
-- 멀티 유저
-- 복잡한 인증
+This project is not only a deliverable.  
+It is a training project for building practical judgment, design sense, and AI collaboration skills as a junior backend developer.
 
-## 6. v2 범위 (3주차)
-- Planner 노드 추가 (질문 유형 분류)
-- Evaluator 노드 추가 (답변 품질 평가)
-- 재시도 로직
-- 평가 로그 저장
+Goals:
 
-## 7. v3 범위 (4주차, 시간 있으면)
-- MCP 서버 래퍼
-- 간단한 CLI 인터페이스
-- 회고 블로그 글 작성
- 
-## 8. 기술 스택
-- Backend: FastAPI, Python 3.12
-- Orchestration: LangGraph
-- Vector DB: PostgreSQL 16 + pgvector
-- LLM: Ollama + [ Qwen3 4B: 개발/테스트용, Qwen3 8B: 최종 실행/데모용 ]
-- 컨테이너: Docker Compose
+- Learn the basic flow of LLM-powered applications
+- Gain hands-on experience with LangGraph orchestration
+- Implement the core RAG flow: chunking, embedding, retrieval, generation
+- Practice using AI tools effectively without blindly trusting them
+- Build a portfolio project focused on decision-making, not just features
 
-## 9. 성공 기준
-- [ ] v1: 문서 3개 적재 후 질문하면 검색 기반 답변이 돌아옴
-- [ ] v2: Evaluator가 점수를 주고, 낮으면 재시도가 발생함
-- [ ] 주요 기술 선택의 이유를 decision-log.md에 남김
-- [ ] 4주 후 이 프로젝트의 구조와 결정을 스스로 설명 가능
+---
 
-## 10. 실패 조건
-- AI가 짜준 코드를 이해 못 한 채 커밋하는 것
-- v1 범위를 2주 안에 끝내지 못하는 것
-- 기능 추가 유혹으로 v2/v3를 제대로 못 끝내는 것
+## 3. Target User / Persona
+
+Primary user:
+
+- Myself
+- Junior backend developer
+- Frequently reads official docs and learning materials
+
+Secondary persona:
+
+- Junior developers who want grounded answers based on technical documents
+- Users who prefer source-backed AI answers over unsupported responses
+
+---
+
+## 4. Core User Scenario
+
+1. The user ingests official documents or markdown learning materials.
+2. The user asks a question.
+   - Example: `How should State be designed in LangGraph?`
+3. The system retrieves relevant document chunks.
+4. The system generates an answer based on the retrieved context.
+5. The system evaluates answer quality.
+   - v2 or later
+6. If quality is low, the system retries.
+   - v2 or later
+7. The system returns the final answer with source references.
+
+---
+
+## 5. v1 Scope: MVP within 2 Weeks
+
+### Included in v1
+
+- Ingest 2–3 markdown documents
+- User question → retrieval → answer generation flow
+- FastAPI REST API
+  - `POST /ingest`
+  - `POST /chat`
+- Store vectors using PostgreSQL + pgvector
+- Use local LLM through Ollama + Qwen
+
+### Excluded from v1
+
+- Planner agent
+- Evaluator agent
+- Retry logic
+- Frontend UI
+- Multi-user support
+- Complex authentication
+- Production-level deployment
+
+---
+
+## 6. v2 Scope: Agentic Flow Extension
+
+Planned for week 3.
+
+### Planned Features
+
+- Planner node
+  - Classify query type
+  - Decide whether retrieval is needed
+- Evaluator node
+  - Evaluate answer quality
+  - Check whether the answer is grounded in retrieved context
+- Retry logic
+  - Retry retrieval or generation when quality is low
+- Evaluation logs
+
+---
+
+## 7. v3 Scope: Optional Extensions
+
+Planned for week 4 if time permits.
+
+### Optional Features
+
+- MCP server wrapper
+- Simple CLI interface
+- Retrospective blog post
+- Architecture review document
+
+---
+
+## 8. Tech Stack
+
+### Backend
+
+- FastAPI
+- Python 3.12
+
+### Orchestration
+
+- LangGraph
+
+### Vector Database
+
+- PostgreSQL 16
+- pgvector
+
+### Local LLM
+
+- Ollama
+- Qwen3
+  - Qwen3 4B for development and testing
+  - Qwen3 8B for final demo
+
+### Container
+
+- Docker
+- Docker Compose
+
+---
+
+## 9. Success Criteria
+
+### v1 Success
+
+- [ ] Ingest 2–3 markdown documents
+- [ ] Retrieve relevant document chunks for a user question
+- [ ] Generate an answer based on retrieved context
+- [ ] Return source references with the answer
+
+### v2 Success
+
+- [ ] Planner classifies the query type
+- [ ] Evaluator scores answer quality
+- [ ] Retry logic runs when quality is low
+- [ ] Evaluation results are logged
+
+### Learning Success
+
+- [ ] Record major technical decisions in `docs/decision-log.md`
+- [ ] Explain the project structure and major design decisions after 4 weeks
+- [ ] Commit only code that I understand
+
+---
+
+## 10. Failure Conditions
+
+The main failure is not lack of features.  
+The main failure is implementing code without understanding it.
+
+Avoid:
+
+- Committing AI-generated code without understanding it
+- Failing to complete v1 within 2 weeks
+- Expanding scope before the core v1/v2 flow is done
+- Being unable to explain why the system was designed this way
+- Leaving only code without decision records
+
+---
 
 ## 11. AI Collaboration Principles
-- AI 답변은 "초안"으로 취급한다. 정답으로 보지 않는다.
-- 중요한 기술 선택은 decision-log.md에 이유/대안/포기 이유를 남긴다.
-- 구현 전에 반드시 "더 단순한 대안이 있는가?"를 AI에게 한 번 물어본다.
-- AI가 준 설계를 그대로 쓰지 않고, 내 언어로 docs/에 정리한다.
-- 같은 질문을 Claude와 Codex에 교차 검증하는 것을 습관화한다.
+
+- Treat AI responses as drafts, not final answers.
+- Record important technical decisions in `decision-log.md`.
+  - Decision
+  - Reason
+  - Alternatives
+  - Rejected alternatives
+  - Tradeoffs
+- Before implementation, ask:
+  - `Is there a simpler alternative for v1?`
+- Do not use AI-generated designs directly without review.
+- Rewrite important designs in my own words before applying them.
+- Cross-check important questions between Claude and Codex.
+- If AI gives wrong answers repeatedly, switch to official documentation.
+
+---
 
 ## 12. Self-Evaluation Checkpoints
-- 1주차 끝: LangGraph의 State 개념을 내 언어로 설명할 수 있는가?
-- 2주차 끝: chunking / embedding / retrieval의 차이와 각각의 역할을 설명할 수 있는가?
-- 3주차 끝: Evaluator가 왜 필요하고, 어떻게 구현했는지 설명할 수 있는가?
-- 4주차 끝: 왜 이 기술 스택을 선택했는지, 어떤 대안을 왜 포기했는지 설명할 수 있는가?
 
-## 13. 범위 밖 (이번 프로젝트에서 절대 하지 않음)
-- 프로덕션 수준의 인증/권한 시스템
-- 대규모 분산 처리
-- 커스텀 임베딩 모델 학습
-- 고도화된 UI 개발
+### End of Week 1
+
+- Can I explain LangGraph State in my own words?
+- Can I explain how FastAPI connects to the LangGraph flow?
+
+### End of Week 2
+
+- Can I explain the difference between chunking, embedding, and retrieval?
+- Can I explain how pgvector stores and searches document vectors?
+- Can I explain the v1 API flow from ingestion to answer generation?
+
+### End of Week 3
+
+- Can I explain why an Evaluator is needed?
+- Can I explain when retry logic should run?
+- Can I explain the Planner → Retriever → Generator → Evaluator flow?
+
+### End of Week 4
+
+- Can I explain why this tech stack was chosen?
+- Can I explain which alternatives were rejected and why?
+- Can I explain this project clearly in a portfolio context?
+
+---
+
+## 13. Out of Scope
+
+This is a local learning project.  
+The following are intentionally excluded:
+
+- Production-level authentication and authorization
+- Large-scale distributed processing
+- Custom embedding model training
+- Advanced frontend UI
+- Multi-tenant SaaS architecture
+- Complex cloud deployment
+- LLM fine-tuning
