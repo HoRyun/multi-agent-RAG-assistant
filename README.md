@@ -1,50 +1,24 @@
-# Project Context
+# Local Multi-Agent RAG Assistant
 
-This project is a local-first multi-agent RAG assistant for software engineering learning.
+로컬 환경에서 동작하는 개발 학습용 멀티 에이전트 RAG 시스템.
 
-## Primary Goal
-This is not just a demo application.
-The main goal is to improve the developer's ability to:
-- evaluate AI-generated design decisions
-- understand RAG internals
-- learn orchestration and state-based workflow design
-- build systems with explicit evaluation and retry loops
+## 목적
+신입 개발자의 LLM 시스템 설계 학습과 AI 협업 훈련을 위한 프로젝트.
 
-## Project Priorities
-1. Simplicity over cleverness
-2. Learnable structure over premature abstraction
-3. Explicit state flow over hidden magic
-4. Testability over speed of hacking
-5. Documented trade-offs over blind adoption of trends
+## 기술 스택
+- Backend: FastAPI, Python 3.12
+- Orchestration: LangGraph
+- Vector DB: PostgreSQL + pgvector
+- LLM: Ollama (Qwen3 4B: 개발/테스트용, Qwen3 8B: 최종 실행/데모용)
+- Package Manager: uv
 
-## Technical Constraints
-- Python
-- FastAPI
-- LangGraph
-- Ollama
-- Qwen-based local model
-- PostgreSQL + pgvector
-- Local-first development
-- Minimal dependencies unless clearly justified
+## 프로젝트 상태
+🚧 개발 중 (Day 0)
 
-## Coding Guidelines
-- Prefer small, testable functions
-- Avoid overly abstract class hierarchies
-- Use type hints
-- Add logs at key state transitions
-- Keep node responsibilities narrow
-- Every non-trivial design choice should include a brief reason
+## 문서
+- [PRD](./docs/PRD.md)
+- [Decision Log](./docs/decision-log.md)
+- [Declaration](./DECLARATION.md)
 
-## Architecture Guidelines
-- Separate planner / retriever / generator / evaluator responsibilities
-- Keep graph state explicit
-- Design for observability
-- Suggest simpler alternatives when proposing complex designs
-- Point out trade-offs, not just the idealized solution
-
-## Response Expectations for AI Agents
-When suggesting code or architecture:
-1. Explain why this approach fits the project goals
-2. Mention at least one simpler alternative
-3. Point out one likely risk
-4. Avoid unnecessary complexity
+## 개발 환경 설정
+(내일 작성 예정)
