@@ -1,47 +1,156 @@
 # CLAUDE.md
 
-## 프로젝트 컨텍스트
-- 이름: multi-agent-rag-assistant (임시)
-- 목적: 로컬 환경에서 동작하는 개발 학습용 멀티 에이전트 RAG 시스템
-- 개발자: 신입 백엔드 개발자, LLM 내부 로직 학습 중
+This file provides project-specific instructions for Claude Code.
 
-## 중요: 개발자 학습 모드
+Please read this before making suggestions, generating code, or changing the project structure.
 
-나는 학습 목적으로 이 프로젝트를 진행한다.
-다음 원칙을 반드시 따라줘.
+---
 
-### 코드 생성 시
-1. 코드를 주기 전에, 왜 이 구조를 선택했는지 1~3줄로 설명해줘.
-2. 대안이 있다면 최소 1개를 간단히 언급해줘.
-3. 이 코드의 트레이드오프(장점과 단점)를 알려줘.
-4. 내가 이해해야 할 핵심 개념이 있다면 짚어줘.
+## 1. Project Context
 
-### 설계 결정 시
-1. 추천안을 바로 주지 말고, 먼저 "너의 선택 기준"을 물어봐줘.
-2. 내가 기준을 말하지 않으면, 기준 질문을 3개 이내로 먼저 해줘.
-3. 추천 후에는 반드시 "이 선택이 틀릴 수 있는 경우"를 설명해줘.
+- **Name**: multi-agent-rag-assistant
+- **Purpose**: A local, learning-focused multi-agent RAG system
+- **Developer**: Junior backend developer learning LLM internals and orchestration design
+- **Primary Goal**: Build a working local RAG assistant while training decision-making, design sense, and AI collaboration skills
 
-### 내가 놓치기 쉬운 것
-- 나는 인프라·CI/CD 경험은 있지만 LLM 내부 로직은 경험 부족.
-- LLM 관련 결정에서는 더 자세한 설명이 필요.
-- 설계 패턴 이름을 쓸 때는 뜻도 함께 설명해줘.
-- 한국어로 설명해줘.
+---
 
-### 금지 사항
-- "best practice이니까 이렇게 하세요"라는 식의 근거 없는 추천 금지.
-- 내가 묻지 않은 기능을 임의로 추가하지 마.
-- 복잡도를 올리는 제안을 할 때는 반드시 내 허락을 먼저 받아.
-- v1 범위 밖의 기능은 제안하지 마.
+## 2. Important: Developer Learning Mode
 
-## 기술 스택
-- Backend: FastAPI, Python 3.12
-- Orchestration: LangGraph
-- Vector DB: PostgreSQL + pgvector
-- LLM: Ollama (로컬) + Qwen3 4B: 개발/테스트용, Qwen3 8B: 최종 실행/데모용
-- 컨테이너: Docker + Docker Compose
+This project is for learning, not just fast implementation.
 
-## 코딩 규칙
-- 타입 힌트 필수
-- 함수 docstring 필수 (한국어 가능)
-- 주요 결정은 코드 주석으로 "WHY:" 접두어로 남김
-- 파일당 300줄 넘으면 분리 검토
+Follow these rules carefully.
+
+---
+
+## 3. When Generating Code
+
+Before giving code, explain briefly:
+
+1. Why this structure was chosen
+2. At least one simpler or alternative approach, if any
+3. Tradeoffs of this code
+   - Pros
+   - Cons
+4. Core concepts I need to understand
+
+Keep the explanation short and practical.
+
+Do not generate large code blocks without explaining the reasoning first.
+
+---
+
+## 4. When Making Design Decisions
+
+Do not immediately recommend a solution.
+
+First, ask for my selection criteria.
+
+If I do not provide criteria, ask up to 3 clarifying questions first.
+
+After giving a recommendation, always explain:
+
+- Why this choice fits the criteria
+- What alternatives were considered
+- Cases where this choice could be wrong
+
+---
+
+## 5. Things I Tend to Miss
+
+I have experience in infrastructure, CI/CD, Docker, and AWS, but I have less hands-on experience with LLM internals.
+
+When explaining LLM-related topics, provide more detail than usual.
+
+Important areas where I may need extra explanation:
+
+- Chunking
+- Embedding
+- Retrieval
+- Reranking
+- Prompt design
+- LangGraph State
+- Agent orchestration
+- Evaluator design
+- Retry logic
+
+When using a design pattern name, explain what it means.
+
+Use Korean when explaining concepts to me in chat.
+
+---
+
+## 6. How to Explain Things to Me
+
+Use analogies from infrastructure, DevOps, Docker, CI/CD, or AWS when helpful.
+
+Good examples:
+
+- LangGraph State is similar to state passed between steps in AWS Step Functions.
+- A retriever is similar to a search layer between storage and application logic.
+- An evaluator is similar to a quality gate in a CI/CD pipeline.
+- Docker Compose is a local orchestration tool for development dependencies.
+
+Keep explanations short enough to avoid overthinking.
+
+---
+
+## 7. Prohibited Behavior
+
+Do not:
+
+- Say “this is best practice” without explaining why
+- Add features I did not ask for
+- Increase complexity without asking for permission first
+- Suggest features outside the current project scope
+- Touch v2/v3 features before v1 is working
+- Generate code that hides important logic from me
+- Refactor broadly without explaining the reason
+
+---
+
+## 8. Tech Stack
+
+### Backend
+
+- FastAPI
+- Python 3.12
+
+### Orchestration
+
+- LangGraph
+
+### Vector Database
+
+- PostgreSQL
+- pgvector
+
+### Local LLM
+
+- Ollama
+- Qwen3
+  - Qwen3 4B for development and testing
+  - Qwen3 8B for final demo
+
+### Container
+
+- Docker
+- Docker Compose
+
+---
+
+## 9. Coding Rules
+
+- Use type hints
+- Write function docstrings
+- Prefer clear and simple code over clever code
+- Keep functions small and explainable
+- If a file grows beyond 300 lines, consider splitting it
+- Use comments only when they explain why, not what
+- For important decisions, leave comments with the `WHY:` prefix
+
+Example:
+
+```python
+# WHY: Keep chunk size fixed in v1 to reduce tuning complexity.
+chunk_size = 800

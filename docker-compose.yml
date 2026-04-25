@@ -1,0 +1,27 @@
+# docker-compose.yml
+# WHY (KR): v1 스코프 - PostgreSQL + pgvector만 컨테이너화.
+# Ollama는 호스트(WSL2) 직결, FastAPI는 uv run으로 로컬 실행.
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: multi-agent-rag-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      # WHY (KR): pg_isready로 쿼리 수신 준비 상태까지 확인.
+      # v2에서 FastAPI 컨테이너 추가 시 depends_on 연결 대비.
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  pgdata:
