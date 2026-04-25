@@ -20,12 +20,26 @@
 - Docker Compose 세팅
 - LangGraph Hello World
 
-STEP 9: Docker Compose 파일 작성 (Claude Code 학습 모드)
-STEP 10: PostgreSQL + pgvector 컨테이너 띄우기
-STEP 11: FastAPI Hello World
-STEP 12: Ollama 설치 및 Qwen 모델 pull
-STEP 13: LangGraph 공식 Quickstart 따라하기 (2~3시간)
-STEP 14: 오늘 회고
+---
 
-### 기분
-- [ 이게 맞나 오묘한 느낌 ]
+## Day 1 - 2026-04-25
+
+### 완료한 것
+
+- **STEP 9**: Docker Compose 작성 — PostgreSQL 16 + pgvector 컨테이너 정의
+- **STEP 10**: pgvector 컨테이너 실행 확인 — `CREATE EXTENSION vector` 성공
+- **STEP 11**: FastAPI 앱 초안 — `/health` 엔드포인트 + DB ping 포함
+- **STEP 12**: Ollama 설치 — `qwen3:4b`, `nomic-embed-text` pull 완료, embedding dim 768 확인
+- **STEP 13**: LangGraph Quickstart — `examples/langgraph_quickstart.py` 작성, State / Node / Edge / compile 흐름 이해
+
+### 현재 구성
+
+| 컴포넌트 | 실행 위치 | 포트 |
+|----------|-----------|------|
+| PostgreSQL + pgvector | Docker Compose | 5432 |
+| FastAPI | WSL uvicorn | 8000 |
+| Ollama | WSL host | 11434 |
+
+### Day 2 next step
+
+- DB schema for `documents` / `chunks` tables with `vector(768)`
