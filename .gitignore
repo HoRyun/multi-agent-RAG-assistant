@@ -24,3 +24,6 @@ data/processed/
 # OS
 .DS_Store
 Thumbs.db
+
+# Dev script logs and PIDs
+.logs/
