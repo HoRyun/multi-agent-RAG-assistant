@@ -43,3 +43,10 @@
 ### Day 2 next step
 
 - DB schema for `documents` / `chunks` tables with `vector(768)`
+
+STEP 14: DB 모델 + 테이블 생성
+STEP 15: chunk_text 구현
+STEP 16: embed_text 구현
+STEP 17: ingest_markdown_dir 구현
+STEP 18: DB 저장 + 멱등성 검증
+STEP 19: 오늘 결과 검증 + 기록      

@@ -12,8 +12,18 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
 
+    EMBEDDING_DIM: int = 768
+
     APP_ENV: str = "development"
     LOG_LEVEL: str = "INFO"
+
+    @property
+    def database_url(self) -> str:
+        """DB 연결 URL을 조합해 반환한다. URL 조합 책임을 config에 집중한다."""
+        return (
+            f"postgresql+psycopg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
+            f"@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+        )
 
 
 # WHY (KR): 앱 전체에서 같은 설정 객체를 재사용합니다.
