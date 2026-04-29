@@ -16,6 +16,7 @@ class Settings(BaseSettings):
 
     OLLAMA_HOST: str
     OLLAMA_EMBEDDING_MODEL: str
+    OLLAMA_MODEL: str
 
     APP_ENV: str = "development"
     LOG_LEVEL: str = "INFO"

@@ -159,7 +159,42 @@ query string
 - `SELECT Model, expr` 시 SQLAlchemy가 어떻게 두 컬럼을 하나의 Row 객체로 묶는지 (ORM 내부 동작)
 - pgvector index (ivfflat, hnsw)의 필요성 — 지금은 full scan, 데이터가 많아지면 언제 index가 필요한지
 
-### 다음 할 것
+### 다음 할 것 (추가 전)
 
 - LangGraph RAG 노드 연결 — retrieve 결과를 LangGraph state에 넣기
 - `/chat` API 또는 CLI에서 질문 → 검색 → 답변 흐름 완성
+
+---
+
+### STEP 24–27 추가 (2026-04-29)
+
+#### 완료한 것
+
+- **STEP 24**: `app/rag/prompt.py` 작성 — `build_rag_prompt()` 구현. 시스템 지시(context 외 내용은 모른다고 답하라), 출처 레이블(`source_path#chunk_index`), 질문을 하나의 문자열로 조합.
+- **STEP 25**: `app/rag/generate.py` 작성 — Ollama `/api/generate` 호출, `stream=False`로 단일 응답 수신, `GenerationError` 예외 처리. 6개 테스트 통과.
+- **STEP 26**: `app/rag/answer.py` 작성 — `retrieve → build_rag_prompt → generate_answer`를 `answer_question()` 하나로 묶음.
+- **STEP 27**: `examples/rag_answer_demo.py` 작성 — CLI 실행 시 질문 → 검색 → 답변 → 출처 출력.
+- `app/config.py`에 `OLLAMA_MODEL` 추가 (기존 `.env`의 `OLLAMA_MODEL=qwen3:4b` 재사용).
+
+#### 완성된 RAG 파이프라인
+
+```text
+query
+→ embed_text()            # 쿼리 벡터
+→ cosine_distance 검색    # 유사 청크 top_k
+→ build_rag_prompt()      # context + 질문 → prompt
+→ generate_answer()       # Ollama LLM 호출
+→ 답변 문자열
+```
+
+#### 오늘 배운 것
+
+- `OLLAMA_MODEL` 같은 이미 존재하는 .env 키는 Settings에 필드만 추가하면 바로 읽힌다. 같은 값을 다른 이름으로 중복 추가할 필요가 없다.
+- Ollama `/api/generate`의 `stream=False` 옵션은 응답 전체를 JSON 하나로 반환한다. `stream=True`는 NDJSON 스트리밍이라 파싱 방식이 달라진다.
+- 순수 문자열 조합 함수(prompt builder)는 외부 의존성이 없으므로 mock 없이 직접 테스트할 수 있다. 반환값의 내용 포함 여부(`in`)로 검증하는 것이 명확하다.
+- CLI 데모에서 `answer_question()` 하나만 쓰면 내부에서 `retrieve`가 한 번 더 호출된다. sources 출력이 필요하면 개별 함수를 직접 조합해야 한다.
+
+#### 다음 할 것
+
+- FastAPI `/chat` 엔드포인트 — `answer_question(query)` 를 POST body로 받아 호출
+- DB + Ollama 살아있는 상태에서 `rag_answer_demo.py` end-to-end 실행 검증
