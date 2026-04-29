@@ -27,3 +27,7 @@ Thumbs.db
 
 # Dev script logs and PIDs
 .logs/
+
+
+day*.md
+.codex*
