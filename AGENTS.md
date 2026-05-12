@@ -1,9 +1,9 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file is the entrypoint for Claude Code in this repository.
+This file is the entrypoint for Codex and other coding agents in this repository.
 
 Do not treat this file as the full project context.
-Use it as a routing guide and read the referenced documents when needed.
+Use it as a routing guide and read only the referenced documents needed for the current task.
 
 ---
 
@@ -38,6 +38,7 @@ Read:
 - `docs/PRD.md`
 
 Use this when:
+
 - deciding whether a feature belongs in v1, v2, or v3
 - checking success criteria
 - avoiding scope creep
@@ -50,6 +51,7 @@ Read:
 - `DECLARATION.md`
 
 Use this when:
+
 - deciding how much to delegate to AI
 - checking whether implementation supports learning
 - judging whether code is understandable enough to commit
@@ -62,6 +64,7 @@ Read:
 - `docs/decision-log.md`
 
 Use this when:
+
 - questioning the chosen stack
 - adding or changing architecture
 - comparing alternatives
@@ -74,6 +77,7 @@ Read:
 - `docs/doubts.md`
 
 Use this when:
+
 - the developer is uncertain about a previous choice
 - a topic feels like it may cause overthinking
 - deciding whether to revisit or defer a concern
@@ -85,6 +89,7 @@ Read:
 - `docs/journal.md`
 
 Use this when:
+
 - continuing from the latest development state
 - deciding the next implementation step
 - checking what was completed recently
@@ -96,6 +101,7 @@ Read:
 - `docs/handoff.md`
 
 Use this when:
+
 - starting a new conversation
 - recovering context after a long break
 - needing the full background of the developer and project
@@ -148,7 +154,7 @@ feat(rag): add semantic search API
 
 ### Communication style
 
-- Respond to the developer in Korean.
+- Respond to the developer in Korean by default.
 - Use infra, Docker, AWS, CI/CD analogies when helpful.
 - Explain LLM-related topics more carefully than backend topics.
 - Keep explanations short enough to avoid overthinking.
@@ -170,3 +176,4 @@ Example:
 ```python
 # WHY: Keep chunk size fixed in v1 to reduce tuning complexity.
 chunk_size = 800
+```
