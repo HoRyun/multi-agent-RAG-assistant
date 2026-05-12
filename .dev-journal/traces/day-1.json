@@ -1,0 +1,28 @@
+{
+  "task_id": "day-1",
+  "goal": "Agent Development Journal MVP 구현",
+  "tests": [
+    {
+      "command": "uv run pytest",
+      "result": "passed",
+      "note": "MVP 테스트 통과"
+    }
+  ],
+  "reviews": [
+    {
+      "severity": "medium",
+      "note": "README 사용 예시 필요"
+    }
+  ],
+  "decisions": [
+    {
+      "note": "표준 라이브러리 argparse 사용",
+      "reason": "MVP에는 Typer 없이 충분함"
+    }
+  ],
+  "lessons": [
+    {
+      "note": "파일 기반 기록은 작은 CLI에 적합함"
+    }
+  ]
+}

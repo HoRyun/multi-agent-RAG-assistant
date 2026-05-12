@@ -29,5 +29,6 @@ Thumbs.db
 .logs/
 
 
-day*.md
+.claude*
 .codex*
+docs/learning*

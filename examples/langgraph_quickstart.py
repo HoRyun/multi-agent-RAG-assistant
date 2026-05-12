@@ -39,7 +39,7 @@ def retrieve(state: RAGState) -> dict:
     실제 구현에서는 pgvector에 쿼리하지만, 여기서는 가짜 결과를 반환한다.
     """
     query = state["query"]
-    print(f"\n[Node: retrieve] 실행")
+    print("\n[Node: retrieve] 실행")
     print(f"  입력 state.query = {query!r}")
 
     # WHY: v1 학습 단계이므로 실제 DB 호출 없이 하드코딩.
@@ -54,7 +54,7 @@ def generate(state: RAGState) -> dict:
     실제 구현에서는 Ollama(qwen3:4b)를 호출하지만, 여기서는 가짜 답변을 반환한다.
     """
     context = state["context"]
-    print(f"\n[Node: generate] 실행")
+    print("\n[Node: generate] 실행")
     print(f"  입력 state.context = {context!r}")
 
     # WHY: Ollama 연동은 다음 STEP에서 추가. 지금은 흐름 이해에 집중.

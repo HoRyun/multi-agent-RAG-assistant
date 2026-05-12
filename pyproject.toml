@@ -19,6 +19,13 @@ dependencies = [
     "uvicorn[standard]>=0.46.0",
 ]
 
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+dev-journal = "app.dev_journal.cli:console"
+
 [dependency-groups]
 dev = [
     "pytest>=9.0.3",
@@ -28,3 +35,6 @@ dev = [
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
